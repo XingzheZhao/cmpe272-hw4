@@ -151,15 +151,23 @@ $ serverless remove
 
 ### Make a directory for this approach.
 
-    mkdir sample_dir
+```
+mkdir sample_dir
+```
 
-    cd sample_dir
+```
+cd sample_dir
+```
 
 ### Installation and Configuration
 
-    pip3 install aws-shell git-remote-codecommit
+```
+pip3 install aws-shell git-remote-codecommit
+```
 
-    aws configure
+```
+aws configure
+```
 
 ### Provide you own Access Key/Secret and desire region (example below)
 
@@ -169,34 +177,62 @@ $ serverless remove
 
 Create a repository
 
-    aws codecommit create-repository --repository-name <your_desire_repository_name>
+```
+aws codecommit create-repository --repository-name <your_desire_repository_name>
+```
 
 Clone an existing GitHub repository
 
-    git clone git@github.com:aws-samples/aws-serverless-webapp-workshop.git
+```
+git clone git@github.com:aws-samples/aws-serverless-webapp-workshop.git
+```
 
-    cd aws-serverless-webapp-workshop
+```    
+cd aws-serverless-webapp-workshop
+```
 
 Split out a project
 
-    git subtree split -P resources/code/WildRydesVue -b <your_desire_branch_name>
+```
+git subtree split -P resources/code/WildRydesVue -b <your_desire_branch_name>
+```
 
-    cd ..
+```
+cd ..
+```
 
-    mkdir <new_directory_name>
+```
+mkdir <new_directory_name>
+```
 
-    cd <new_directory_name>
+```
+cd <new_directory_name>
+```
 
-    git init
+```
+git init
+```
 
-    git pull ../aws-serverless-webapp-workshop <your_desire_branch_name>
+```
+git pull ../aws-serverless-webapp-workshop <your_desire_branch_name>
+```
 
-    git remote add origin codecommit://<your_desire_repository_name>
+```
+git remote add origin codecommit://<your_desire_repository_name>
+```
 
-    git push -u origin main
+```
+git push -u origin main
+```
 
-    cd ..
+```
+cd ..
+```
 
 ### After Pushing
 Login to your AWS account that connect to the access key and access secret, then visit the CodeCommit page to check if the project is successfully pushed or not. If successful, host your web app.
+
+## Reference
+
+- https://github.com/aws-samples/aws-serverless-webapp-workshop
     
