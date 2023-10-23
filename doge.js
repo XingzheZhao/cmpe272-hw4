@@ -47,7 +47,7 @@ module.exports.create = (event, context, cb) => {
         }
         var imgdata = fs.readFileSync(fileName)
         var s3params = {
-           Bucket: 'iopipe-workshop-doge-1',
+           Bucket: 'cmpe272hw4doge',
            Key: s3filename,
            Body: imgdata,
            ContentType: 'image/jpeg',

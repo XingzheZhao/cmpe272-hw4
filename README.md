@@ -13,7 +13,7 @@ while consuming no dedicated or long-lived resources besides space on S3.
 
 1. Access to a MacOS or Linux machine. These instructions are not tested on Windows; users may need to make small adaptations or run these commands inside of a Docker container or Linux VM. ([Install Docker for Windows](https://docs.docker.com/docker-for-windows/))
 2. Amazon Web Services account. Creation of an account is free and various services are provided under a free-tier, although a credit card is required at the time of account creation. AWS Lambda is free for up to 1 million invocations per month, for all users, which is more than sufficient for this course. Storage of functions may incur small fees (normally pennies / month).  Students are solely responsible for their AWS bill and all charges incurred as a result of this course.
-3. Install NodeJS 4.4.3 or higher: [NodeJS downloads](https://nodejs.org/en/)
+3. Install NodeJS 4.18.x or higher: [NodeJS downloads](https://nodejs.org/en/)
 4. Curl (you probably have this already! Curl ships with MacOS and is easily installed via Linux package managers.
 
 # System configuration
@@ -57,11 +57,11 @@ $ npm install
 
 ## Re-name the project!
 
-Edit `serverless.yml` and `doge.js` to change `iopipe-workshop-doge-1` to a unique name.
+Edit `serverless.yml` and `doge.js` to change `cmpe272hw4doge` to a unique name.
 
 ```
-$ sed -i "s/iopipe-workshop-doge-1/iopipe-workshop-doge-$(($RANDOM*$RANDOM))/g" doge.js serverless.yml
-# On OS X: sed -i "" -e "s/iopipe-workshop-doge-1/iopipe-workshop-doge-$(($RANDOM*$RANDOM))/g" doge.js serverless.yml
+$ sed -i "s/cmpe272hw4doge/iopipe-workshop-doge-$(($RANDOM*$RANDOM))/g" doge.js serverless.yml
+# On OS X: sed -i "" -e "s/cmpe272hw4doge/iopipe-workshop-doge-$(($RANDOM*$RANDOM))/g" doge.js serverless.yml
 ```
 
 ## Deploy the app:
@@ -76,7 +76,7 @@ This function uploads files into Amazon S3. To accomplish this, the Lambda funct
 be granted permission to the S3 bucket.
 
 - Go into the IAM policy editor, click `Roles`.
-- Select the role which looks like, `iopipe-workshop-doge-1-dev-IamRoleLambda-`
+- Select the role which looks like, `cmpe272hw4doge-dev-IamRoleLambda-`
 - Click `Attach Policy` and select `AmazonS3FullAccess`.
 
 ## Execute the lambda function:

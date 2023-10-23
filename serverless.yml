@@ -11,17 +11,17 @@
 #
 # Happy Coding!
 
-service: iopipe-workshop-doge-1 # NOTE: update this with your service name
+service: cmpe272hw4doge # NOTE: update this with your service name
 
 provider:
   name: aws
   region: us-east-1
-  runtime: nodejs4.3
+  runtime: nodejs18.x
   # iamRoleStatements:
   #     -  Effect: "Allow"
   #        Action:
   #          - "s3:ListBucket"
-  #        Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "iopipe-workshop-doge-1"} ] ] }
+  #        Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "cmpe272hw4doge"} ] ] }
   #     -  Effect: "Allow"
   #        Action:
   #          - "s3:PutObject"
@@ -29,7 +29,7 @@ provider:
   #          Fn::Join:
   #            - ""
   #            - - "arn:aws:s3:::"
-  #              - "Ref" : "iopipe-workshop-doge-1"
+  #              - "Ref" : "cmpe272hw4doge"
 
 #package:
 #  include:
@@ -60,4 +60,4 @@ resources:
     newResource:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: iopipe-workshop-doge-1
+        BucketName: cmpe272hw4doge

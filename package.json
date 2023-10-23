@@ -11,6 +11,6 @@
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.4.13",
-    "gm": "^1.23.0"
+    "imagemagick": "^0.1.3"
   }
 }
