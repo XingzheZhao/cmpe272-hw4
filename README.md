@@ -1,4 +1,6 @@
-# Serverless Development Workshop
+# Approach 1
+
+## Serverless Development Workshop
 
 In this workshop, we'll deploy a simple serverless application which generates Doge meme images,
 randomly choosing colors and locations of text, writing an image into an S3 bucket.
@@ -9,14 +11,14 @@ while consuming no dedicated or long-lived resources besides space on S3.
 ![Doge image](https://s3.amazonaws.com/iopipe-workshop-doge-2/doge-996.jpg)
 
 
-# Preparation:
+## Preparation:
 
 1. Access to a MacOS or Linux machine. These instructions are not tested on Windows; users may need to make small adaptations or run these commands inside of a Docker container or Linux VM. ([Install Docker for Windows](https://docs.docker.com/docker-for-windows/))
 2. Amazon Web Services account. Creation of an account is free and various services are provided under a free-tier, although a credit card is required at the time of account creation. AWS Lambda is free for up to 1 million invocations per month, for all users, which is more than sufficient for this course. Storage of functions may incur small fees (normally pennies / month).  Students are solely responsible for their AWS bill and all charges incurred as a result of this course.
 3. Install NodeJS 4.18.x or higher: [NodeJS downloads](https://nodejs.org/en/)
 4. Curl (you probably have this already! Curl ships with MacOS and is easily installed via Linux package managers.
 
-# System configuration
+## System configuration
 
 * Create ~/.aws/credentials (manually or via `aws-cli configure`), or set environment variables:
 
@@ -25,7 +27,7 @@ export AWS_ACCESS_KEY_ID=<key>
 export AWS_SECRET_ACCESS_KEY=<secret>
 ```
 
-# Serverless Framework
+## Serverless Framework
 
 There are several frameworks for building so-called "serverless" applications. The most
 popular one is called, aptly, [The Serverless Framework](http://www.serverless.com). Other
@@ -39,7 +41,7 @@ For the sake of convenience, we'll settle using TheServerlessFramework with a No
 * Deploy! `serverless deploy`
 * Test!   `serverless invoke --function hello -p event.json`
 
-# Deploy a real app!
+## Deploy a real app!
 
 We've prepared an example project for you to test!
 
@@ -49,13 +51,13 @@ Checkout this repo:
 $ git clone https://github.com/iopipe/lambda-workshop
 ```
 
-## Install npm modules
+### Install npm modules
 
 ```
 $ npm install
 ```
 
-## Re-name the project!
+### Re-name the project!
 
 Edit `serverless.yml` and `doge.js` to change `cmpe272hw4doge` to a unique name.
 
@@ -64,13 +66,13 @@ $ sed -i "s/cmpe272hw4doge/iopipe-workshop-doge-$(($RANDOM*$RANDOM))/g" doge.js 
 # On OS X: sed -i "" -e "s/cmpe272hw4doge/iopipe-workshop-doge-$(($RANDOM*$RANDOM))/g" doge.js serverless.yml
 ```
 
-## Deploy the app:
+### Deploy the app:
 
 ```
 $ serverless deploy
 ```
 
-## Configure the IAM policy for the function:
+### Configure the IAM policy for the function:
 
 This function uploads files into Amazon S3. To accomplish this, the Lambda function must
 be granted permission to the S3 bucket.
@@ -79,7 +81,7 @@ be granted permission to the S3 bucket.
 - Select the role which looks like, `cmpe272hw4doge-dev-IamRoleLambda-`
 - Click `Attach Policy` and select `AmazonS3FullAccess`.
 
-## Execute the lambda function:
+### Execute the lambda function:
 
 ```
 $ serverless invoke --function create -p event.json
@@ -90,7 +92,7 @@ text overlaid onto the image.
 
 Edit the code and do fun things!
 
-# IOpipe account
+## IOpipe account
 
 While not critical for a doge-text app, more serious applications, including
 ChatBots, Voice assistents, production web services, etc. will benefit from
@@ -119,7 +121,7 @@ module.exports.create = iopipe((event, context, cb) => {
 * Invoke function: `serverless invoke --function create -p event.json`
 * Check [dashboard](https://dashboard.iopipe.com)
 
-# Extra homework!
+## Extra homework!
 
 This is actually a functioning Slackbot! If you have admin permission on a Slack, you can add this as a /doge slash command!
 
@@ -131,7 +133,7 @@ This is actually a functioning Slackbot! If you have admin permission on a Slack
 
 Now you can type `/doge this text gets printed onto your doge!`
 
-# Delete resources
+## Delete resources
 
 We have created various resources during this course. You may, of course, keep these applications and resources deployed, but you may incur small fees from Amazon in doing so. Make sure to delete all AWS Lambda functions, S3 objects, S3 buckets, and other resources created during this course using your AWS console. If in doubt, check the Billing "Service" in your AWS Console.
 
@@ -142,3 +144,59 @@ The following command *should* remove all resources:
 ```
 $ serverless remove
 ```
+
+# Approach 2 Deploying a serverless App by using AWS CodeCommit and AWS Amplify
+
+## Terminal Commands
+
+### Make a directory for this approach.
+
+    mkdir sample_dir
+
+    cd sample_dir
+
+### Installation and Configuration
+
+    pip3 install aws-shell git-remote-codecommit
+
+    aws configure
+
+### Provide you own Access Key/Secret and desire region (example below)
+
+<img width="810" alt="Screenshot 2023-10-22 at 8 54 25 PM" src="https://github.com/XingzheZhao/cmpe272-hw4/assets/98489037/2549f29d-9279-46e6-941a-683617223222">
+
+### Starting
+
+Create a repository
+
+    aws codecommit create-repository --repository-name <your_desire_repository_name>
+
+Clone an existing GitHub repository
+
+    git clone git@github.com:aws-samples/aws-serverless-webapp-workshop.git
+
+    cd aws-serverless-webapp-workshop
+
+Split out a project
+
+    git subtree split -P resources/code/WildRydesVue -b <your_desire_branch_name>
+
+    cd ..
+
+    mkdir <new_directory_name>
+
+    cd <new_directory_name>
+
+    git init
+
+    git pull ../aws-serverless-webapp-workshop <your_desire_branch_name>
+
+    git remote add origin codecommit://<your_desire_repository_name>
+
+    git push -u origin main
+
+    cd ..
+
+### After Pushing
+Login to your AWS account that connect to the access key and access secret, then visit the CodeCommit page to check if the project is successfully pushed or not. If successful, host your web app.
+    
